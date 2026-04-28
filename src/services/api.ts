@@ -125,6 +125,35 @@ const MOCK_RESPONSE: EmergencyResponse = {
     hazard_predictions: [{ type: "FLASHOVER", timer: "90s", action: "Ventilate" }],
     micro_sop: ["Check door temperature"],
     mission_status: { objective: "Evacuate Floor 2", progress: 70 }
+  },
+  global_admin: {
+    sites: [
+      { id: "SITE_A", name: "Grand Hotel Royale", status: "CRITICAL", location: { lat: 40.7128, lng: -74.0060 }, active_incidents: 1 },
+      { id: "SITE_B", name: "Luxe Mall & Plaza", status: "SAFE", location: { lat: 40.7306, lng: -73.9352 }, active_incidents: 0 }
+    ],
+    active_site_id: "SITE_A",
+    recommendations: [
+      { id: "R1", type: "EVACUATION", title: "Priority Evacuation Floor 3", description: "Smoke detected near Exit B. Immediate rerouting required.", impact: "Safety: +40% | Time: -2min", confidence: 98, action_label: "Evacuate Now" },
+      { id: "R2", type: "SYSTEM", title: "Engage HVAC Extraction", description: "High smoke density in North Atrium. Activate high-power ventilation.", impact: "Visibility: +25%", confidence: 85, action_label: "Activate Extraction" }
+    ],
+    system_health: {
+      sensors: { online: 452, offline: 3, faulty: 1 },
+      network: { status: "OPTIMAL", latency: "12ms" },
+      cameras: { active: 124, total: 128 }
+    },
+    predictive_sim: {
+      time_horizon: "5 minutes",
+      fire_prediction: "Likely to breach South Corridor in T-120s.",
+      evac_outcome: "95% success rate if Exit A remains clear.",
+      bottleneck_prediction: "Stairwell 2 congestion likely in T-180s."
+    },
+    compliance: {
+      osha_alignment: 94,
+      nfpa_status: "COMPLIANT",
+      audit_log_hash: "0x7f8e9d..."
+    },
+    escalation_level: 3,
+    autonomous_mode: "ASSISTED"
   }
 };
 
