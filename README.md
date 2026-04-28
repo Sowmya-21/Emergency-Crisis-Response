@@ -94,7 +94,7 @@ Use the event simulator to test different emergency scenarios:
 The frontend connects to the FastAPI backend using the following endpoints:
 
 - `GET /` - Health check
-- `POST /process` - Process emergency events
+- `POST /incidents` - Process emergency events
 
 ## Configuration
 

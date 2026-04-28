@@ -612,8 +612,12 @@ def action_sequence(tasks):
     return [{"step": i+1, "task": t} for i, t in enumerate(tasks)]
 
 @app.get("/")
-def root():
-    return {"status": "running"}
+async def root():
+    return {
+        "message": "ResQAI Tactical Intelligence API is online",
+        "version": "4.2.0",
+        "endpoints": ["/process", "/request-assistance", "/global-intelligence"]
+    }
 
 @app.post("/request-assistance")
 def request_assistance(data: dict):
