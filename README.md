@@ -1,4 +1,6 @@
-# Emergency Management Frontend
+# ResQAI: Emergency Management Portal
+
+🚀 **Live Demo**: [emergency-crisis-response.vercel.app](https://emergency-crisis-response.vercel.app)
 
 ## 📸 Tactical Preview
 
