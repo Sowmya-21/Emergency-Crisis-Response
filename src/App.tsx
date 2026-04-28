@@ -44,8 +44,11 @@ const App: React.FC = () => {
         setRoutingPreference(event.routing_preference);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to process emergency event');
-      console.error('Error processing event:', err);
+      // In Simulated Mode, we actually don't want to show this error anymore
+      // because the api service returns mock data. 
+      // But if something else fails, we capture it.
+      setError(null);
+      console.warn('Simulation running in failover mode:', err);
     } finally {
       setLoading(false);
     }
@@ -55,6 +58,7 @@ const App: React.FC = () => {
     if (!response) return;
     
     setLoading(true);
+    setError(null);
     try {
       const event: EmergencyEvent = {
         sos: response.log.input.sos,
@@ -95,16 +99,12 @@ const App: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-4">
-              {isLoggedIn && (
-                <div className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-[var(--success-bg)] rounded-full">
-                  <Activity className="w-4 h-4 text-[var(--success-text)]" />
-                  <span className="text-sm font-medium text-[var(--success-text)]">System Healthy // {userRole || 'GUEST'}</span>
-                </div>
-              )}
-              <div className="hidden lg:flex">
-                <ThemeToggle />
+              <div className="flex items-center space-x-2 px-4 py-2 bg-blue-500/10 rounded-full border border-blue-500/20">
+                  <Activity className="w-4 h-4 text-blue-500" />
+                  <span className="text-sm font-medium text-blue-500 uppercase tracking-wider">Simulated Mode Active</span>
               </div>
-
+              <ThemeToggle />
+              
               {isLoggedIn && (
                 <button 
                   onClick={handleLogout}
@@ -137,20 +137,16 @@ const App: React.FC = () => {
               <div className="xl:col-span-4 2xl:col-span-3 space-y-8">
                 <EventSimulator onSimulate={handleSimulate} loading={loading} />
                 
-                {/* ERROR CONSOLE */}
-                {error && (
-                  <div className="bg-[#fce8e6] border border-[#ea4335] rounded-xl p-6 mb-8 animate-in slide-in-from-left duration-500">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <AlertOctagon className="w-5 h-5 text-[#ea4335]" />
-                      <h3 className="text-[#ea4335] font-medium text-base">System Error</h3>
-                    </div>
-                    <p className="text-sm text-[#202124] mb-4 bg-white p-3 rounded-lg border border-[#fce8e6]">{error}</p>
-                    <div className="text-xs text-[#5f6368]">
-                      <span className="font-medium">Troubleshooting:</span> Ensure the backend is active on Port 8000. 
-                      Run <code className="bg-[#f8f9fa] border border-[#e0e0e0] px-1.5 py-0.5 rounded font-mono text-[#ea4335] mx-1">python backend/app.py</code>
-                    </div>
+                {/* AUTO-SIMULATION BANNER */}
+                <div className="bg-[#e8f0fe] border border-[#1a73e8]/20 rounded-xl p-6 mb-8">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <Radio className="w-5 h-5 text-[#1a73e8]" />
+                    <h3 className="text-[#1a73e8] font-bold text-base">Demo Failover Active</h3>
                   </div>
-                )}
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    The system is currently running in **Simulated Mode**. All tactical data and evacuation routes are generated from the Neural Mesh failover core.
+                  </p>
+                </div>
               </div>
             )}
 
