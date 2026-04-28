@@ -608,8 +608,8 @@ def action_sequence(tasks):
     return [{"step": i+1, "task": t} for i, t in enumerate(tasks)]
 
 @app.get("/")
-def home():
-    return {"message": "Intelligence Layer Running"}
+def root():
+    return {"status": "running"}
 
 @app.post("/request-assistance")
 def request_assistance(data: dict):
@@ -989,6 +989,4 @@ def get_global_intelligence():
         ]
     }
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
