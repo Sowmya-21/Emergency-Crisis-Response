@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || process.env.REACT_APP_AP
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000, // Increased timeout for Railway spin-up
+  timeout: 5000, // Faster failover for better demo experience
 });
 
 // High-quality mock data for demo purposes when backend is unreachable

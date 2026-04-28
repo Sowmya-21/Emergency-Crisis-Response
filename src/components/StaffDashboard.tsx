@@ -145,8 +145,19 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({ response, onLogout }) =
     }
   };
 
+  const [isLockdown, setIsLockdown] = useState(false);
+  const [isEvacuating, setIsEvacuating] = useState(false);
+
   const handleAction = (action: string) => {
     addToast(`ACTION: ${action}`, action.includes('EVACUATION') ? 'alert' : 'info');
+    
+    if (action.includes('LOCKDOWN') || action.includes('Close All Zones')) {
+      setIsLockdown(true);
+    }
+    if (action.includes('EVACUATION')) {
+      setIsEvacuating(true);
+    }
+
     const logEntry = {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       event: `EMERGENCY ACTION: ${action}`,

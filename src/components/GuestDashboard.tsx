@@ -456,7 +456,18 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({ response, onUpdateRouti
       setActiveAssistance(data);
       speak(formatChatMessage(data.chat_log[0].message));
     } catch (err) {
-      console.error('Error requesting assistance:', err);
+      console.warn('Backend assistance API unreachable. Using Tactical Mock Responder.');
+      const mockData = {
+        request_id: "SIM-REQ-123",
+        type,
+        status: "DISPATCHED",
+        responder_name: type === 'medical' ? "Medical Unit 4" : type === 'fire' ? "Fire Crew 2" : "Security Lead",
+        chat_log: [
+          { sender: 'responder', message: `Hello, this is the ${type} unit. We have received your request and a team is being dispatched to ${response.log.input.location}. Please stay where you are if safe.`, time: new Date().toLocaleTimeString() }
+        ]
+      };
+      setActiveAssistance(mockData as any);
+      speak(formatChatMessage(mockData.chat_log[0].message));
     } finally {
       setIsRequesting(false);
     }
