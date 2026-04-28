@@ -446,7 +446,7 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({ response, onUpdateRouti
   const handleRequestHelp = async (type: 'medical' | 'fire' | 'security') => {
     setIsRequesting(true);
     try {
-      const resp = await fetch('http://localhost:8000/request-assistance', {
+      const resp = await fetch('https://emergency-crisis-response-production.up.railway.app/request-assistance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type, location: response.log.input.location })

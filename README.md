@@ -100,7 +100,7 @@ The frontend connects to the FastAPI backend using the following endpoints:
 
 ### Environment Variables
 
-- `REACT_APP_API_URL`: Base URL for the API backend (default: http://localhost:8000)
+- `REACT_APP_API_URL`: Base URL for the API backend (Production: https://emergency-crisis-response-production.up.railway.app)
 
 ### Styling
 
